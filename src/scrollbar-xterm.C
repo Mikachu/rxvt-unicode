@@ -1,7 +1,6 @@
 /*--------------------------------*-C-*---------------------------------*
  * File:	scrollbar-xterm.c
  *----------------------------------------------------------------------*
- * $Id$
  *
  * Copyright (c) 1997,1998 mj olesen <olesen@me.QueensU.CA>
  * Copyright (c) 1999-2001 Geoff Wing <gcw@pobox.com>
@@ -30,7 +29,7 @@
 
 #define x_stp_width	8
 #define x_stp_height	2
-const unsigned char x_stp_bits[] = { 0xff, 0xff };
+const unsigned char x_stp_bits[] = { 0xaa, 0x55 };
 
 int
 rxvt_term::scrollbar_show_xterm (int update __attribute__((unused)), int last_top, int last_bot, int scrollbar_len)
@@ -54,31 +53,30 @@ rxvt_term::scrollbar_show_xterm (int update __attribute__((unused)), int last_to
 	gcvalue.background = PixColors[Color_bg];
 
 	xscrollbarGC = XCreateGC(Xdisplay, scrollBar.win,
-				       GCForeground | GCBackground
-				       | GCFillStyle | GCStipple, &gcvalue);
+			         GCForeground | GCBackground
+			         | GCFillStyle | GCStipple, &gcvalue);
 	gcvalue.foreground = PixColors[Color_border];
-	ShadowGC = XCreateGC(Xdisplay, scrollBar.win, GCForeground,
-				   &gcvalue);
+	ShadowGC = XCreateGC(Xdisplay, scrollBar.win, GCForeground, &gcvalue);
     }
 /* instead of XClearWindow (Xdisplay, scrollBar.win); */
     xsb = (Options & Opt_scrollBar_right) ? 1 : 0;
     if (last_top < scrollBar.top)
 	XClearArea(Xdisplay, scrollBar.win,
 		   sb_shadow + xsb, last_top,
-		   sbwidth + 1, (scrollBar.top - last_top), False);
+		   sbwidth, (scrollBar.top - last_top), False);
 
     if (scrollBar.bot < last_bot)
 	XClearArea(Xdisplay, scrollBar.win,
 		   sb_shadow + xsb, scrollBar.bot,
-		   sbwidth + 1, (last_bot - scrollBar.bot), False);
+		   sbwidth, (last_bot - scrollBar.bot), False);
 
 /* scrollbar slider */
     XFillRectangle(Xdisplay, scrollBar.win, xscrollbarGC,
-		   xsb + 1, scrollBar.top, sbwidth, scrollbar_len);
+		   xsb + 1, scrollBar.top, sbwidth - 2, scrollbar_len);
 
-    /*XDrawLine(Xdisplay, scrollBar.win, ShadowGC,
+    XDrawLine(Xdisplay, scrollBar.win, ShadowGC,
 	      xsb ? 0 : sbwidth, scrollBar.beg,
-	      xsb ? 0 : sbwidth, scrollBar.end);*/
+	      xsb ? 0 : sbwidth, scrollBar.end);
     return 1;
 }
 #endif				/* XTERM_SCROLLBAR */
