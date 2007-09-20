@@ -45,6 +45,7 @@ static const struct rxvt_fallback_font {
   codeset cs;
   const char *name;
 } fallback_fonts[] = {
+  { CS_UNICODE,    "-*-*-*-r-*--*-*-*-*-c-*-iso10646-1"           },
   { CS_ISO8859_1,    "-*-*-*-r-*--*-*-*-*-c-*-iso8859-1"           },
   { CS_ISO8859_15,   "-*-*-*-r-*--*-*-*-*-c-*-iso8859-15"          },
   { CS_ISO8859_15,   "-*-*-*-r-*--*-*-*-*-c-*-fcd8859-15"          },
