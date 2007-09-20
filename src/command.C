@@ -947,8 +947,8 @@ rxvt_term::key_release (XKeyEvent &ev)
 #if defined(MOUSE_WHEEL) && defined(MOUSE_SLIP_WHEELING)
   if (!(ev.state & ControlMask))
     slip_wheel_ev.stop ();
-  else if (keysym == XK_Control_L || keysym == XK_Control_R)
-    mouse_slip_wheel_speed = 0;
+//  else if (keysym == XK_Control_L || keysym == XK_Control_R)
+//    mouse_slip_wheel_speed = 0;
 #endif
 }
 
@@ -2240,8 +2240,13 @@ rxvt_term::button_release (XButtonEvent &ev)
                     slip_wheel_ev.start (SCROLLBAR_CONTINUOUS_DELAY, SCROLLBAR_CONTINUOUS_DELAY);
                 }
               else
-# endif
                 {
+                  //XXX Mikachu :)
+                  slip_wheel_ev.stop ();
+                  mouse_slip_wheel_speed = 0;
+# else
+                {
+# endif
                   scr_page (dirn, lines);
                   scrollBar.show (1);
                 }
