@@ -2101,11 +2101,20 @@ rxvt_term::button_press (XButtonEvent &ev)
                   break;
 
                 case Button1:
+#ifdef MIKACHU
+                  scr_page (DN, nrow / 4);
+                  break;
+#endif
                   if (scrollBar.align == SB_ALIGN_CENTRE)
                     csrO = ev.y - scrollBar.top;
                   /* FALLTHROUGH */
 
                 case Button3:
+#ifdef MIKACHU
+                  scr_page (UP, nrow / 4);
+                  break;
+#endif
+
                   if (scrollBar.style != SB_STYLE_XTERM)
                     {
                       if (scrollBar.above_slider (ev.y))
