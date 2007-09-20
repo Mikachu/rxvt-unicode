@@ -89,16 +89,16 @@ sub new_terminal {
             return if $event->state; # GDK_PROPERTY_NEW_VALUE == 0
 
 
-            if ($name eq "_NET_WM_NAME") {
-               my ($type, $format, $data)
-                  = $window->property_get (
-                       $atom,
-                       Gtk2::Gdk::Atom->intern ("UTF8_STRING", 0),
-                       0, 128, 0
-                    );
-
-               $label->set_text (Encode::decode_utf8 $data);
-            }
+#            if ($name eq "_NET_WM_NAME") {
+#               my ($type, $format, $data)
+#                  = $window->property_get (
+#                       $atom,
+#                       Gtk2::Gdk::Atom->intern ("UTF8_STRING", 0),
+#                       0, 128, 0
+#                    );
+#
+#               $label->set_text (Encode::decode_utf8 $data);
+#            }
          }
 
          0;
@@ -113,6 +113,7 @@ sub new_terminal {
    });
 
    $notebook->append_page ($rxvt, $label);
+   $label->set_text ("term " . $notebook->page_num ($rxvt));
 
    $rxvt->show_all;
 
