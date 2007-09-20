@@ -63,7 +63,7 @@
 /*
  * Make colours match xterm colours instead of `traditional' rxvt colours
  */
-#define XTERM_COLORS
+/* #define XTERM_COLORS */
 
 /*
  * Disable separate colours for bold, underline and reverse video
@@ -117,8 +117,8 @@
  * SCROLL_ON_* defines above.).
  * Also for modifier+Home/End keys to move to top/bottom
  */
-/* #define SCROLL_ON_UPDOWN_KEYS */
-/* #define SCROLL_ON_HOMEEND_KEYS */
+#define SCROLL_ON_UPDOWN_KEYS
+#define SCROLL_ON_HOMEEND_KEYS
 
 /*
  * Allow unshifted Next/Prior keys to scroll forward/back
@@ -154,7 +154,7 @@
 /*
  * Set delay between multiple click events [default: 500 milliseconds]
  */
-/* #define MULTICLICK_TIME 500 */
+#define MULTICLICK_TIME 200
 
 /*
  * Time factor to slow down a `jumpy' mouse.  Motion isn't recognised until
