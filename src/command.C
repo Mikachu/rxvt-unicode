@@ -443,7 +443,7 @@ rxvt_term::key_press (XKeyEvent &ev)
 #endif
 #endif
         {
-          wchar_t wkbuf[KBUFSZ + 1];
+          //wchar_t wkbuf[KBUFSZ + 1];
 
           // the XOpenIM manpage lies about hardcoding the locale
           // at the point of XOpenIM, so temporarily switch locales
@@ -451,8 +451,9 @@ rxvt_term::key_press (XKeyEvent &ev)
             SET_LOCALE (rs[Rs_imLocale]);
 
           // assume wchar_t == unicode or better
-          len = XwcLookupString (Input_Context, &ev, wkbuf,
+          len = XmbLookupString (Input_Context, &ev, kbuf,
                                  KBUFSZ, &keysym, &status_return);
+          //printf("%i\n", len);
 
           if (rs[Rs_imLocale])
             SET_LOCALE (locale);
@@ -461,18 +462,19 @@ rxvt_term::key_press (XKeyEvent &ev)
               || status_return == XLookupBoth)
             {
               /* make sure the user can type ctrl-@, i.e. NUL */
-              if (len == 1 && *wkbuf == 0)
+              if (len == 1 && *kbuf == 0)
                 {
                   kbuf[0] = 0;
                   len = 1;
                 }
-              else
+#if 0 //              else if (0)
                 {
                   wkbuf[len] = 0;
                   len = wcstombs ((char *)kbuf, wkbuf, KBUFSZ);
                   if (len < 0)
                     len = 0;
                 }
+#endif
             }
           else
             len = 0;
