@@ -826,6 +826,22 @@ bool
 rxvt_color::set (rxvt_screen *screen, const char *name)
 {
   rgba c;
+
+  if (!strcmp(name, "random")) {
+    FILE *seedsource;
+    int rand[3];
+    if ((seedsource = fopen("/dev/urandom", "r")) || (seedsource = fopen("/dev/random", "r"))) {
+      fread(&rand, sizeof(rand), 1, seedsource);
+      fclose(seedsource);
+      c.r = rand[0];
+      c.g = rand[1];
+      c.b = rand[2];
+      c.a = 65535;
+      return set (screen, c);
+    }
+    fprintf(stderr, "failed to open /dev/random or /dev/urandom for reading, wtf?\n");
+    return false;
+  }
   char eos;
   int skip = 0;
 
