@@ -1333,13 +1333,13 @@ rxvt_term::create_windows (int argc, const char *const *argv)
   attributes.background_pixel = pix_colors_focused [Color_border];
   attributes.border_pixel     = pix_colors_focused [Color_border];
   attributes.colormap         = cmap;
-
+  attributes.backing_store    = NotUseful;
   top = XCreateWindow (dpy, parent,
                        szHint.x, szHint.y,
                        szHint.width, szHint.height,
                        ext_bwidth,
                        depth, InputOutput, visual,
-                       CWColormap | CWBackPixel | CWBorderPixel | CWOverrideRedirect,
+                       CWColormap | CWBackPixel | CWBorderPixel | CWOverrideRedirect | CWBackingStore,
                        &attributes);
 
   this->parent = top;
@@ -1432,7 +1432,8 @@ rxvt_term::create_windows (int argc, const char *const *argv)
                             pix_colors_focused[Color_bg]);
 
   attributes.bit_gravity = NorthWestGravity;
-  XChangeWindowAttributes (dpy, vt, CWBitGravity, &attributes);
+  attributes.backing_store = NotUseful;
+  XChangeWindowAttributes (dpy, vt, CWBitGravity | CWBackingStore, &attributes);
 
   vt_emask = ExposureMask | ButtonPressMask | ButtonReleaseMask | PropertyChangeMask;
 

@@ -65,6 +65,8 @@ scrollBar_t::resize ()
 
   if (!win)
     {
+      XSetWindowAttributes attr;
+      attr.backing_store = NotUseful;
       /* create the scrollbar window */
       win = XCreateSimpleWindow (term->dpy,
                                  term->parent,
@@ -74,6 +76,7 @@ scrollBar_t::resize ()
                                  0,
                                  term->pix_colors[Color_fg],
                                  term->pix_colors[color ()]);
+      XChangeWindowAttributes(term->dpy, win, CWBackingStore, &attr);
       XDefineCursor (term->dpy, win, leftptr_cursor);
 
       XSelectInput (term->dpy, win,
