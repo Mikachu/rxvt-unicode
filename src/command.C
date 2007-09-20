@@ -423,7 +423,7 @@ rxvt_term::key_press (XKeyEvent &ev)
    *
    * Always permit `shift' to override the current setting
    */
-  shft = ev.state & ShiftMask;
+  shft = ev.state & ShiftMask | ev.state & LockMask;
   ctrl = ev.state & ControlMask;
   meta = ev.state & ModMetaMask;
 
