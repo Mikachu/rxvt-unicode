@@ -991,6 +991,7 @@ rxvt_color::free (rxvt_screen *screen)
 void
 rxvt_color::fade (rxvt_screen *screen, int percent, rxvt_color &result, const rgba &to)
 {
+  percent = 100 - percent;
   rgba c;
   get (c);
 
