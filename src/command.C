@@ -2167,7 +2167,7 @@ rxvt_term::button_release (XButtonEvent &ev)
   sel_scroll_ev.stop();
 #endif
 
-  if (ev.window == vt)
+  if (ev.window == vt || (scrollBar.state && ev.window == scrollBar.win))
     {
       if (HOOK_INVOKE ((this, HOOK_BUTTON_RELEASE, DT_XEVENT, &ev, DT_END)))
         return;
