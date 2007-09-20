@@ -133,7 +133,7 @@ optList[] = {
 # endif
               BOOL (Rs_visualBell, "visualBell", "vb", Opt_visualBell, 0, "visual bell"),
 # if ! defined(NO_MAPALERT) && defined(MAPALERT_OPTION)
-              BOOL (Rs_mapAlert, "mapAlert", NULL, Opt_mapAlert, 0, NULL),
+              BOOL (Rs_mapAlert, "mapAlert", "ma", Opt_mapAlert, 0, NULL),
 # endif
 #endif
 #ifdef META8_OPTION
