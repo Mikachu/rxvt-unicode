@@ -3486,12 +3486,16 @@ rxvt_term::process_xterm_seq (int op, char *str, char resp)
 
 #if BG_IMAGE_FROM_ROOT
       case URxvt_Color_tint:
-        process_color_seq (op, Color_tint, str, resp);
         {
+          char *underscore = strchr(str, '_');
           bool changed = false;
-
+          if (underscore) {
+            changed = root_effects.set_shade (underscore+1);
+            *underscore = '\0';
+          }
+          process_color_seq (op, Color_tint, str, resp);
           if (ISSET_PIXCOLOR (Color_tint))
-            changed = root_effects.set_tint (pix_colors_focused [Color_tint]);
+            changed |= root_effects.set_tint (pix_colors_focused [Color_tint]);
 
           if (changed)
             update_background ();
