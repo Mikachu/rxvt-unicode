@@ -2360,7 +2360,6 @@ static uint32_t cs_jis0213_2_from_unicode (unicode_t unicode) {
     uint8_t  l = unicode;
     uint16_t h = unicode >> 8;
     if (0x34 <= h && h <= 0xfa
-        && 0x00 <= l && l <= 0xff
         && jis0213_2_f_i[h - 0x34])
       return jis0213_2_f_i[h - 0x34][l - 0x00]
              ? jis0213_2_f_i[h - 0x34][l - 0x00]
