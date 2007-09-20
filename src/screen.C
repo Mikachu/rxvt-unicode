@@ -2637,7 +2637,7 @@ rxvt_term::scr_reverse_selection () NOTHROW
       && selection.end.row >= view_start)
     {
 #if !ENABLE_MINIMAL
-      if (selection.rect)
+      if (selection.rect || selection.clicks == 4)
         scr_xor_rect (selection.beg.row, selection.beg.col,
                       selection.end.row, selection.end.col,
                       RS_Sel | RS_RVid, RS_Sel | RS_RVid | RS_Uline);
@@ -2801,7 +2801,7 @@ rxvt_term::selection_make (Time tm)
 
   selection.op = SELECTION_DONE;
 
-  if (selection.clicks == 4)
+  if (selection.clicks == 5)
     return;                 /* nothing selected, go away */
 
   if (HOOK_INVOKE ((this, HOOK_SEL_MAKE, DT_LONG, (long)tm, DT_END)))
@@ -2821,7 +2821,7 @@ rxvt_term::selection_make (Time tm)
   for (; row <= selection.end.row; row++, col = 0)
     {
 #if !ENABLE_MINIMAL
-      if (selection.rect)
+      if (selection.rect || selection.clicks == 4)
         {
           col = selection.beg.col;
           end_col = selection.end.col;
@@ -2947,7 +2947,7 @@ rxvt_term::selection_grab (Time tm, bool clipboard) NOTHROW
 void ecb_cold
 rxvt_term::selection_click (int clicks, int x, int y) NOTHROW
 {
-  clicks = ((clicks - 1) % 3) + 1;
+  clicks = ((clicks - 1) % 4) + 1;
   selection.clicks = clicks;       /* save clicks so extend will work */
 
   if (clicks == 2 && !selection.rect
@@ -3106,19 +3106,19 @@ rxvt_term::selection_extend (int x, int y, int flag) NOTHROW
   * select nothing.  Otherwise, if we're to the right of the mark, you have to
   * be _past_ a character for it to be selected.
   */
-  if (((selection.clicks % 3) == 1) && !flag
+  if (((selection.clicks % 4) == 1) && !flag
       && (col == selection.mark.col
           && (row == selection.mark.row - view_start)))
     {
       /* select nothing */
       selection.beg.row = selection.end.row = 0;
       selection.beg.col = selection.end.col = 0;
-      selection.clicks = 4;
+      selection.clicks = 5;
       want_refresh = 1;
       return;
     }
 
-  if (selection.clicks == 4)
+  if (selection.clicks == 5)
     selection.clicks = 1;
 
   selection_extend_colrow (col, row, !!flag,  /* ? button 3      */
@@ -3323,7 +3323,7 @@ rxvt_term::selection_extend_colrow (int32_t col, int32_t row, int button3, int b
     }
 
 #if !ENABLE_MINIMAL
-  if (selection.rect && selection.beg.col > selection.end.col)
+  if ((selection.rect || selection.clicks == 4) && selection.beg.col > selection.end.col)
     ::swap (selection.beg.col, selection.end.col);
 #endif
 
@@ -3382,7 +3382,7 @@ rxvt_term::selection_remove_trailing_spaces () NOTHROW
 void ecb_cold
 rxvt_term::selection_rotate (int x, int y) NOTHROW
 {
-  selection.clicks = selection.clicks % 3 + 1;
+  selection.clicks = selection.clicks % 4 + 1;
   selection_extend_colrow (Pixel2Col (x), Pixel2Row (y), 1, 0, 1);
 }
 
