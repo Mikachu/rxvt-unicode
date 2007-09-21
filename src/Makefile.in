@@ -42,11 +42,7 @@ COMMON = \
 	rxvttoolkit.o rxvtutil.o keyboard.o rxvtimg.o \
 	ev_cpp.o fdpass_wrapper.o ptytty_wrapper.o @PERL_O@
 
-COMMON_DAEMON = rxvtdaemon.o
-
 RXVT_BINNAME=$(DESTDIR)$(bindir)/$(RXVTNAME)$(EXEEXT)
-RXVTC_BINNAME=$(DESTDIR)$(bindir)/$(RXVTNAME)c$(EXEEXT)
-RXVTD_BINNAME=$(DESTDIR)$(bindir)/$(RXVTNAME)d$(EXEEXT)
 
 #
 # Distribution variables
@@ -66,12 +62,6 @@ all: allbin
 rxvt: rxvt.o $(COMMON)
 	$(LINK) -o $@ rxvt.o $(COMMON) $(LIBS) $(XLIB) $(PERLLIB)
 
-rxvtd: rxvtd.o $(COMMON) $(COMMON_DAEMON)
-	$(LINK) -o $@ rxvtd.o $(COMMON) $(COMMON_DAEMON) $(LIBS) $(XLIB) $(PERLLIB)
-
-rxvtc: rxvtc.o $(COMMON_DAEMON) fdpass_wrapper.o
-	$(LINK) -o $@ rxvtc.o $(COMMON_DAEMON) fdpass_wrapper.o $(LIBS)
-
 #-------------------------------------------------------------------------
 
 #EXUBERANT_OPTS = -I NOTHROW -I THROW
@@ -82,7 +72,7 @@ tags: *.[Ch]
 TAGS: *.[Ch]
 	etags $(EXUBERANT_OPTS) *.[Ch]
 
-allbin: rxvt rxvtd rxvtc
+allbin: rxvt
 
 alldoc:
 
@@ -127,8 +117,6 @@ install-perl:
 install-bin: allbin
 	$(INSTALL) -d $(DESTDIR)$(bindir)
 	$(INSTALL_PROGRAM) rxvt  $(RXVT_BINNAME)
-	$(INSTALL_PROGRAM) rxvtc $(RXVTC_BINNAME)
-	$(INSTALL_PROGRAM) rxvtd $(RXVTD_BINNAME)
 
 install: install-bin install-perl
 
@@ -211,15 +199,6 @@ rxvt.o: rxvtutil.h ../libptytty/src/estl.h emman.h rxvtfont.h rxvttoolkit.h
 rxvt.o: ev_cpp.h ../config.h ../libev/ev++.h ../libev/ev.h callback.h
 rxvt.o: rxvtimg.h scrollbar.h ../libptytty/src/libptytty.h rxvtperl.h
 rxvt.o: hookinc.h rsinc.h optinc.h
-rxvtc.o: ../config.h rxvtdaemon.h rxvtutil.h ../libptytty/src/ecb.h
-rxvtc.o: ../libptytty/src/estl.h emman.h ../libptytty/src/libptytty.h
-rxvtd.o: ../config.h rxvt.h feature.h ../libptytty/src/ecb.h encoding.h
-rxvtd.o: rxvtutil.h ../libptytty/src/estl.h emman.h rxvtfont.h rxvttoolkit.h
-rxvtd.o: ev_cpp.h ../config.h ../libev/ev++.h ../libev/ev.h callback.h
-rxvtd.o: rxvtimg.h scrollbar.h ../libptytty/src/libptytty.h rxvtperl.h
-rxvtd.o: hookinc.h rsinc.h optinc.h rxvtdaemon.h
-rxvtdaemon.o: rxvtdaemon.h rxvtutil.h ../libptytty/src/ecb.h
-rxvtdaemon.o: ../libptytty/src/estl.h emman.h
 rxvtfont.o: ../config.h rxvt.h feature.h ../libptytty/src/ecb.h encoding.h
 rxvtfont.o: rxvtutil.h ../libptytty/src/estl.h emman.h rxvtfont.h
 rxvtfont.o: rxvttoolkit.h ev_cpp.h ../config.h ../libev/ev++.h ../libev/ev.h
