@@ -2527,7 +2527,9 @@ rxvt_term::scr_recolor (bool refresh) NOTHROW
 # if ENABLE_TRANSPARENCY
       if (bg_flags & BG_IS_TRANSPARENT)
         {
-          XSetWindowBackgroundPixmap (dpy, parent, bg_img->pm);
+          XSetWindowBackgroundPixmap (dpy, parent,
+                                      option (Opt_dockapp)
+                                      ? ParentRelative : bg_img->pm);
           XSetWindowBackgroundPixmap (dpy, vt, ParentRelative);
 
           transparent = true;
