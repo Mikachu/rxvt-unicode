@@ -1697,7 +1697,7 @@ rxvt_term::update_background ()
   if (update_background_ev.is_active ())
     return;
 
-  ev_tstamp to_wait = 0.5 - (ev::now () - bg_valid_since);
+  ev_tstamp to_wait = 0.1 - (ev::now () - bg_valid_since);
 
   if (to_wait <= 0.)
     bg_render ();
