@@ -807,7 +807,7 @@ rxvt_term::key_press (XKeyEvent &ev)
 
 #if ENABLE_FRILLS || ISO_14755
       // ISO 14755 support
-      if (iso14755buf & (ISO_14755_STARTED | ISO_14755_51))
+      if (ctrl && shft && !meta)
         {
           int hv;
 
@@ -847,17 +847,6 @@ rxvt_term::key_press (XKeyEvent &ev)
               iso14755buf = 0;
             }
         }
-      else if (option (Opt_iso14755) &&
-               ((ctrl && (keysym == XK_Shift_L || keysym == XK_Shift_R))
-                || (shft && (keysym == XK_Control_L || keysym == XK_Control_R))))
-        if (!(iso14755buf & ISO_14755_STARTED))
-          {
-            iso14755buf |= ISO_14755_STARTED;
-# if ISO_14755
-            scr_overlay_new (0, -1, sizeof ("ISO 14755 mode") - 1, 1);
-            scr_overlay_set (0, 0, "ISO 14755 mode");
-# endif
-          }
 #endif
 
 #ifdef PRINTPIPE
@@ -1539,7 +1528,7 @@ rxvt_term::x_cb (XEvent &ev)
         break;
 
       case SelectionClear:
-        selection_clear (ev.xselectionclear.selection == xa[XA_CLIPBOARD]);
+        selection_clear ();
         break;
 
       case SelectionRequest:
@@ -1911,6 +1900,15 @@ rxvt_term::button_press (XButtonEvent &ev)
       if (HOOK_INVOKE ((this, HOOK_BUTTON_PRESS, DT_XEVENT, &ev, DT_END)))
         return;
 
+      if ((ev.state & ControlMask) && ((ev.state & ShiftMask || ev.state & LockMask))
+          && !(iso14755buf & ISO_14755_STARTED))
+        {
+          iso14755buf |= ISO_14755_STARTED;
+#if ISO_14755
+          scr_overlay_new (0, -1, sizeof ("ISO 14755 mode") - 1, 1);
+          scr_overlay_set (0, 0, "ISO 14755 mode");
+#endif
+        }
 #if ISO_14755
       // 5.4
       if (iso14755buf & (ISO_14755_STARTED | ISO_14755_54))
