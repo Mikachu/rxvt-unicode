@@ -1640,8 +1640,11 @@ rxvt_term::x_cb (XEvent &ev)
                         break;
                       }
 #endif
-                    selection_extend (ev.xbutton.x, ev.xbutton.y,
-                                      ev.xbutton.state & Button3Mask ? 2 : 0);
+                    if (MEvent.state & ControlMask)
+                      selection_click (2, ev.xbutton.x, ev.xbutton.y);
+                    else
+                      selection_extend (ev.xbutton.x, ev.xbutton.y,
+                                        ev.xbutton.state & Button3Mask ? 2 : 0);
 
 #ifdef SELECTION_SCROLLING
                     if (ev.xbutton.y < int_bwidth
@@ -1919,12 +1922,12 @@ rxvt_term::button_press (XButtonEvent &ev)
 #endif
 
       clickintime = ev.time - MEvent.time < multiClickTime;
+      MEvent.state = ev.state;
 
       if (reportmode)
         {
           /* mouse report from vt window */
           /* save the xbutton state (for ButtonRelease) */
-          MEvent.state = ev.state;
 #ifdef MOUSE_REPORT_DOUBLECLICK
           if (ev.button == MEvent.button && clickintime)
             {
@@ -1959,14 +1962,28 @@ rxvt_term::button_press (XButtonEvent &ev)
         {
           if (ev.button != MEvent.button)
             MEvent.clicks = 0;
-
           switch (ev.button)
             {
+              case 7:
+                selection_click (2, ev.x, ev.y);
+                MEvent.button = None;
+                MEvent.state |= ControlMask;
+                return;
+              case 6:
+                selection_click (3, ev.x, ev.y);
+                MEvent.button = None;
+                return;
               case Button1:
                 /* allow meta + click to select rectangular areas */
                 /* should be done in screen.C */
 #if ENABLE_FRILLS
                 selection.rect = !!(ev.state & ModMetaMask);
+                if (ev.state & ControlMask) {
+                  selection_click (2, ev.x, ev.y);
+                  MEvent.button = None;
+                  MEvent.state |= ControlMask;
+                  return;
+                }
 #else
                 selection.rect = false;
 #endif
@@ -2211,6 +2228,8 @@ rxvt_term::button_release (XButtonEvent &ev)
 
       switch (ev.button)
         {
+          case 6:
+          case 7:
           case Button1:
           case Button3:
             selection_make (ev.time);
