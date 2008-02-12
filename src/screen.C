@@ -1956,7 +1956,7 @@ rxvt_term::scr_bell () NOTHROW
 # endif
 
 # if ENABLE_FRILLS
-  if (option (Opt_urgentOnBell))
+  if (!focus && option (Opt_urgentOnBell))
     set_urgency (1);
 # endif
 
