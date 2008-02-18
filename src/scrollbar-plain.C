@@ -61,8 +61,10 @@ scrollBar_t::show_plain (int update)
     XClearWindow (term->dpy, win);
 
   /* scrollbar slider */
-  XFillRectangle (term->dpy, win, pscrollbarGC,
-                  1 - xsb, top, sbwidth, bot - top);
+  XDrawRectangle (term->dpy, win, pscrollbarGC,
+                  1 - xsb, top, sbwidth - 1, bot - top - 1);
+  XClearArea (term->dpy, win,
+              2 - xsb, top + 1, sbwidth - 2, bot - top - 2, False);
 
   return 1;
 }
