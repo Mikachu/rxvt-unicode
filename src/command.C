@@ -2108,6 +2108,7 @@ rxvt_term::button_press (XButtonEvent &ev)
                     }
 
                   if (scrollBar.style == SB_STYLE_XTERM
+                      || scrollBar.style == SB_STYLE_PLAIN
                       || scrollBar.above_slider (ev.y)
                       || scrollBar.below_slider (ev.y))
                     scr_move_to (scrollBar.position (ev.y) - csrO, scrollBar.size ());
