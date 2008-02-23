@@ -2280,6 +2280,11 @@ rxvt_term::button_release (XButtonEvent &ev)
             }
             break;
 #endif
+#ifdef MIKACHU
+          case 9:
+            tt_write ("\n", 1);
+            break;
+#endif
         }
     }
 }
