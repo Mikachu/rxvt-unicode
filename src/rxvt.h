@@ -1353,8 +1353,9 @@ struct rxvt_term : zero_initialized, rxvt_vars, rxvt_screen
 #endif
 
   // command.C
-  void key_press (XKeyEvent &ev);
+  bool key_press (XKeyEvent &ev);
   void key_release (XKeyEvent &ev);
+  void update_user_time (Time time);
 
   wchar_t next_char () NOTHROW;
   wchar_t cmd_getc () THROW ((class out_of_input));

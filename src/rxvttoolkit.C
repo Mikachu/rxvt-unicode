@@ -65,6 +65,7 @@ static const char *const xa_names[] =
   "_NET_WM_ICON_NAME",
   "_NET_WM_PING",
   "_NET_WM_ICON",
+  "_NET_WM_USER_TIME",
 #endif
 #if USE_XIM
   "WM_LOCALE_NAME",

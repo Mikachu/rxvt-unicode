@@ -405,6 +405,13 @@ rxvt_wcsdup (const wchar_t *str, int len)
 }
 
 void ecb_cold
+rxvt_term::update_user_time (Time time)
+{
+  XChangeProperty (dpy, parent, xa[XA_NET_WM_USER_TIME], XA_CARDINAL,
+                   32, PropModeReplace, (unsigned char*)&time, 1);
+}
+
+bool ecb_cold
 rxvt_term::key_press (XKeyEvent &ev)
 {
   int ctrl, meta, shft, len;
@@ -414,7 +421,7 @@ rxvt_term::key_press (XKeyEvent &ev)
 
 #if ISO_14755
   if (iso14755buf & ISO_14755_52)
-    return;
+    return false;
 #endif
 
   /*
@@ -700,13 +707,13 @@ rxvt_term::key_press (XKeyEvent &ev)
     }
 
   if (HOOK_INVOKE ((this, HOOK_KEY_PRESS, DT_XEVENT, &ev, DT_INT, keysym, DT_STR_LEN, kbuf, len, DT_END)))
-    return;
+    return true;
 
   if (keysym != NoSymbol)
     {
 #ifdef KEYSYM_RESOURCE
       if (keyboard->dispatch (this, keysym, ev.state, kbuf, len))
-        return;
+        return true;
 #endif
 
       if (saveLines)
@@ -729,12 +736,12 @@ rxvt_term::key_press (XKeyEvent &ev)
               if (keysym == XK_Prior)
                 {
                   scr_page (lnsppg);
-                  return;
+                  return true;
                 }
               else if (keysym == XK_Next)
                 {
                   scr_page (-lnsppg);
-                  return;
+                  return true;
                 }
             }
 #ifdef SCROLL_ON_UPDOWN_KEYS
@@ -743,12 +750,12 @@ rxvt_term::key_press (XKeyEvent &ev)
               if (keysym == XK_Up)
                 {
                   scr_page (1);
-                  return;
+                  return true;
                 }
               else if (keysym == XK_Down)
                 {
                   scr_page (-1);
-                  return;
+                  return true;
                 }
             }
 #endif
@@ -758,12 +765,12 @@ rxvt_term::key_press (XKeyEvent &ev)
               if (keysym == XK_Home)
                 {
                   scr_changeview (top_row);
-                  return;
+                  return true;
                 }
               else if (keysym == XK_End)
                 {
                   scr_changeview (0);
-                  return;
+                  return true;
                 }
             }
 #endif
@@ -778,13 +785,13 @@ rxvt_term::key_press (XKeyEvent &ev)
                     /* normal XTerm key bindings */
                   case XK_Insert:	/* Shift+Insert = paste mouse selection */
                     selection_request (ev.time);
-                    return;
+                    return true;
 #if TODO
                     /* rxvt extras */
                   case XK_KP_Add:	/* Shift+KP_Add = bigger font */
-                    return;
+                    return true;
                   case XK_KP_Subtract:	/* Shift+KP_Subtract = smaller font */
-                    return;
+                    return true;
 #endif
                 }
             }
@@ -802,7 +809,7 @@ rxvt_term::key_press (XKeyEvent &ev)
               selection_grab (CurrentTime, true);
             }
 
-          return;
+          return true;
         }
 
 #if ENABLE_FRILLS || ISO_14755
@@ -820,7 +827,7 @@ rxvt_term::key_press (XKeyEvent &ev)
 # if ISO_14755
               iso14755_51 (0);
 # endif
-              return;
+              return true;
             }
           else if (keysym == XK_BackSpace)
             {
@@ -828,7 +835,7 @@ rxvt_term::key_press (XKeyEvent &ev)
 # if ISO_14755
               iso14755_51 (iso14755buf & ISO_14755_MASK);
 # endif
-              return;
+              return true;
             }
           else if ((hv = hex_keyval (ev)) >= 0)
             {
@@ -837,7 +844,7 @@ rxvt_term::key_press (XKeyEvent &ev)
 # if ISO_14755
               iso14755_51 (iso14755buf & ISO_14755_MASK);
 # endif
-              return;
+              return true;
             }
           else
             {
@@ -853,13 +860,13 @@ rxvt_term::key_press (XKeyEvent &ev)
       if (keysym == XK_Print)
         {
           scr_printscreen (ctrl | shft);
-          return;
+          return true;
         }
 #endif
     }
 
   if (len <= 0)
-    return;			/* not mapped */
+    return false;			/* not mapped */
 
   tt_write_user_input (kbuf, (unsigned int)len);
 }
@@ -1380,7 +1387,8 @@ rxvt_term::x_cb (XEvent &ev)
   switch (ev.type)
     {
       case KeyPress:
-        key_press (ev.xkey);
+        if (key_press (ev.xkey))
+          update_user_time (ev.xkey.time);
         break;
 
       case KeyRelease:
@@ -1388,10 +1396,12 @@ rxvt_term::x_cb (XEvent &ev)
         break;
 
       case ButtonPress:
+        update_user_time (ev.xbutton.time);
         button_press (ev.xbutton);
         break;
 
       case ButtonRelease:
+        update_user_time (ev.xbutton.time);
         button_release (ev.xbutton);
         break;
 
