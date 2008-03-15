@@ -124,3 +124,4 @@
 #ifdef HAVE_XMU
   def (pointerShape)
 #endif
+  def (cursor)

@@ -106,6 +106,7 @@ optList[] = {
               BOOL (Rs_skipScroll, "skipScroll", "ss", Opt_skipScroll, 0, "skip scrolling"),
               BOOL (Rs_pastableTabs, "pastableTabs", "ptab", Opt_pastableTabs, 0, "tab characters are pastable"),
               RSTRG (Rs_scrollstyle, "scrollstyle", "mode"),
+              BOOL (Rs_cursor, "cursor", "cs", Opt_cursor, 0, "cursor"),
               BOOL (Rs_scrollBar, "scrollBar", "sb", Opt_scrollBar, 0, "scrollbar"),
               BOOL (Rs_scrollBar_right, "scrollBar_right", "sr", Opt_scrollBar_right, 0, "scrollbar right"),
               BOOL (Rs_scrollBar_floating, "scrollBar_floating", "st", Opt_scrollBar_floating, 0, "scrollbar without a trough"),

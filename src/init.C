@@ -556,6 +556,7 @@ rxvt_term::init_vars ()
   oldcursor.row = oldcursor.col = -1;
 
   set_option (Opt_scrollBar);
+  set_option (Opt_cursor);
   set_option (Opt_scrollTtyOutput);
   set_option (Opt_jumpScroll);
   set_option (Opt_skipScroll);
@@ -862,6 +863,8 @@ rxvt_term::init2 (int argc, const char *const *argv)
   if (snContext)
     sn_launchee_context_setup_window (snContext, parent);
 #endif
+
+  scr_cursor_visible (option (Opt_cursor));
 
   XMapWindow (dpy, vt);
   XMapWindow (dpy, parent);
