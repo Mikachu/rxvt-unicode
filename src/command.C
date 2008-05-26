@@ -220,8 +220,6 @@ rxvt_term::iso14755_51 (unicode_t ch, rend_t r, int x, int y, int y2)
 
   scr_overlay_set (0, 0, rowcol);
 
-  r = SET_STYLE (OVERLAY_RSTYLE, GET_STYLE (r));
-
   for (int y = 0; y < len; y++)
     {
       char buf[9];
