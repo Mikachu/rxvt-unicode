@@ -3528,7 +3528,11 @@ rxvt_term::process_xterm_seq (int op, char *str, char resp)
       case URxvt_Color_tint:
         {
           char *underscore = strchr(str, '_');
+          char *colon = strchr(str, ':');
           bool changed = false;
+          if (colon) {
+            *colon = '\0';
+          }
           if (underscore) {
             changed = root_effects.set_shade (underscore+1);
             *underscore = '\0';
@@ -3537,8 +3541,18 @@ rxvt_term::process_xterm_seq (int op, char *str, char resp)
           if (ISSET_PIXCOLOR (Color_tint))
             changed |= root_effects.set_tint (pix_colors_focused [Color_tint]);
 
-          if (changed)
-            update_background ();
+          if (changed) {
+            update_background_ev.stop ();
+            if (colon) {
+              float delay = atoi(colon+1)/1000.0;
+              if (delay)
+                update_background_ev.start (delay);
+              else
+                update_background ();
+            }
+            else
+              update_background ();
+          }
         }
 
         break;
