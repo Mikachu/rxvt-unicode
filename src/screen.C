@@ -306,7 +306,7 @@ rxvt_term::scr_reset ()
       int pend = MOD (term_start + top_row  , prev_total_rows);
       int q    = total_rows; // rewrapped row
 
-      if (top_row)
+      if (1 /* rs[Rs_keeplines] */ || top_row)
         {
           // Re-wrap lines. This is rather ugly, possibly because I am too dumb
           // to come up with a lean and mean algorithm.
