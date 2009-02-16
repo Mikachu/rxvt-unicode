@@ -3557,6 +3557,22 @@ rxvt_term::process_xterm_seq (int op, char *str, char resp)
 
         break;
 #endif
+#ifdef OFF_FOCUS_FADING
+      case URxvt_fade:
+        /* schmorp, if you ever see this, I'm sorry */
+        static char fade[4];
+        rs[Rs_fade] = fade;
+        strncpy(rs[Rs_fade], str, 3);
+        fade[3] = '\0';
+        for (int i = 0; i < (depth <= 2 ? 2 : NRS_COLORS); i++)
+          update_fade_color (i);
+        break;
+      case URxvt_Color_fade:
+        process_color_seq (op, Color_fade, str, resp);
+        for (int i = 0; i < (depth <= 2 ? 2 : NRS_COLORS); i++)
+          update_fade_color (i);
+        break;
+#endif
 
 #if BG_IMAGE_FROM_FILE
       case Rxvt_Pixmap:

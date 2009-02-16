@@ -506,11 +506,13 @@ enum {
   URxvt_Color_BD         = 706,     // change actual 'Bold' color
   URxvt_Color_UL         = 707,     // change actual 'Underline' color
   URxvt_Color_border     = 708,
+  URxvt_Color_fade       = 709,     // fade target color --fadeColor
 
   URxvt_font             = 710,
   URxvt_boldFont         = 711,
   URxvt_italicFont       = 712,
   URxvt_boldItalicFont   = 713,
+  URxvt_fade             = 714,     // fade percent
 
   URxvt_view_up          = 720,
   URxvt_view_down        = 721,
