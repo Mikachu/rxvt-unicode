@@ -58,7 +58,7 @@ rxvt_temp_buf (int len)
   if (len > temp_len)
     {
       free (temp_buf);
-      temp_buf = malloc (len);
+      temp_buf = malloc (temp_len = 2*len);
       temp_len = len;
     }
 
