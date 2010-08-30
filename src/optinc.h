@@ -67,4 +67,5 @@
 #endif
  def(dockapp)
  def(cursor)
+ def(realpmap)
 

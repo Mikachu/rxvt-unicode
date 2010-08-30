@@ -74,6 +74,7 @@ static const char *const xa_names[] =
 #if HAVE_IMG || ENABLE_PERL
   "_XROOTPMAP_ID",
   "ESETROOT_PMAP_ID",
+  "_REAL_ROOT_PMAP_ID",
 #endif
 #if ENABLE_XEMBED
   "_XEMBED",

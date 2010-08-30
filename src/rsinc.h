@@ -125,3 +125,4 @@
   def (pointerShape)
 #endif
   def (cursor)
+  def (realpmap)

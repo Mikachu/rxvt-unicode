@@ -263,11 +263,26 @@ rxvt_img::rxvt_img (const rxvt_img &img)
 rxvt_img *
 rxvt_img::new_from_root (rxvt_screen *s)
 {
+  return new_from_root (s, false);
+}
+
+rxvt_img *
+rxvt_img::new_from_root (rxvt_screen *s, bool realpmap)
+{
   Display *dpy = s->dpy;
   unsigned int root_pm_w, root_pm_h;
-  Pixmap root_pixmap = s->display->get_pixmap_property (s->display->xa [XA_XROOTPMAP_ID]);
-  if (root_pixmap == None)
-    root_pixmap = s->display->get_pixmap_property (s->display->xa [XA_ESETROOT_PMAP_ID]);
+  Pixmap root_pixmap;
+
+  if (realpmap)
+    {
+      root_pixmap = s->display->get_pixmap_property (s->display->xa [XA_REAL_ROOT_PMAP_ID]);
+    }
+  else
+    {
+      root_pixmap = s->display->get_pixmap_property (s->display->xa [XA_XROOTPMAP_ID]);
+      if (root_pixmap == None)
+        root_pixmap = s->display->get_pixmap_property (s->display->xa [XA_ESETROOT_PMAP_ID]);
+    }
 
   if (root_pixmap == None)
     return 0;

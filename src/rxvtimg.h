@@ -62,6 +62,7 @@ struct rxvt_img
   static rxvt_img *new_from_file (rxvt_screen *s, const char *filename); // via pixbuf
 # endif
   static rxvt_img *new_from_root (rxvt_screen *s); // get root pixmap
+  static rxvt_img *new_from_root (rxvt_screen *s, bool realpmap); // or something else
 
   ~rxvt_img ();
 

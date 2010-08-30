@@ -525,7 +525,7 @@ rxvt_term::bg_init ()
       if (rs [Rs_shade])
         root_effects.set_shade (rs [Rs_shade]);
 
-      rxvt_img::new_from_root (this)->replace (root_img);
+      rxvt_img::new_from_root (this, option (Opt_realpmap))->replace (root_img);
       XSelectInput (dpy, display->root, PropertyChangeMask);
       rootwin_ev.start (display, display->root);
     }
