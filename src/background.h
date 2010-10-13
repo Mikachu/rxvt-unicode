@@ -35,7 +35,7 @@ struct bgPixmap_t
     tintFlags       = tintSet | tintServerSide | tintNeeded | tintWholesome,
 
     blurNeeded      = 1 << 12,
-    blurServerSide  = 1 << 13, /* this doesn't work yet */
+    blurServerSide  = 1 << 13,
 
     isTransparent   = 1 << 16,
     isInvalid       = 1 << 17,
@@ -50,7 +50,7 @@ struct bgPixmap_t
   enum {
     transpPmapTiled       = 1 << 0,
     transpPmapTinted      = tintNeeded,
-    transpPmapBlured      = blurNeeded,
+    transpPmapBlurred     = blurNeeded,
     transpTransformations = tintNeeded | blurNeeded,
   }; /* these flags are returned by make_transparency_pixmap if called */
 
@@ -115,7 +115,8 @@ struct bgPixmap_t
   bool set_tint (rxvt_color &new_tint);
   bool unset_tint ();
   bool set_shade (const char *shade_str);
-  bool tint_pixmap (Pixmap pixmap, Window root, int width, int height);
+  bool blur_pixmap (Pixmap pixmap, Visual *visual, int width, int height);
+  bool tint_pixmap (Pixmap pixmap, Visual *visual, int width, int height);
   bool set_root_pixmap ();
 
   unsigned long make_transparency_pixmap ();/* returns combination of the transpTransformations flags */
