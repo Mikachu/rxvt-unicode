@@ -3172,7 +3172,7 @@ rxvt_term::process_csi_seq ()
         scr_cursor (RESTORE);
         break;
 
-#if !ENABLE_MINIMAL
+#if !ENABLE_MINIMAL && 0
       case CSI_74:
         process_window_ops (arg, nargs);
         break;
@@ -3189,7 +3189,7 @@ rxvt_term::process_csi_seq ()
 }
 /*}}} */
 
-#if !ENABLE_MINIMAL
+#if !ENABLE_MINIMAL && 0
 void
 rxvt_term::process_window_ops (const int *args, unsigned int nargs)
 {
