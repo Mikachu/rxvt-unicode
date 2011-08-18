@@ -779,8 +779,11 @@ rxvt_term::window_calc (unsigned int newwidth, unsigned int newheight)
   // bg pixmap is set, would have to be cleared manually to properly
   // refresh the background. We take the simpler route and shrink the
   // vt window so as to avoid creating gaps.
+  int old_w = width, old_h = height;
   vt_width  = ncol * fwidth;
   vt_height = nrow * fheight;
+  window_vt_x += (old_w - vt_width) / 2;
+  window_vt_y += (old_h - vt_height) / 2;
 }
 
 /*----------------------------------------------------------------------*/
