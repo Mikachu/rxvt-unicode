@@ -218,7 +218,6 @@ rxvt_term::scr_reset ()
   scr_overlay_off ();
 #endif
 
-  view_start = 0;
   num_scr = 0;
 
   if (ncol == 0)
@@ -416,6 +415,9 @@ rxvt_term::scr_reset ()
       clamp_it (screen.cur.row, 0, nrow - 1);
       clamp_it (screen.cur.col, 0, ncol - 1);
     }
+
+  if (view_start < top_row)
+    view_start = top_row;
 
   for (int row = nrow; row--; )
     {
