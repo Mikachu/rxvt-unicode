@@ -2715,6 +2715,17 @@ rxvt_term::tt_paste (char *data, unsigned int len) NOTHROW
   if (priv_modes & PrivMode_BracketPaste)
     tt_printf ("\x1b[200~");
 
+  if (priv_modes & PrivMode_BracketPaste) {
+    char *esc = data;
+    unsigned int rlen = len;
+    while (esc = memchr(esc, '\033', rlen)) {
+      esc++;
+      rlen = len + (data - esc);
+      if (rlen >= 5 && !strncmp(esc, "[201~", 5))
+        *(esc - 1) = '_';
+    }
+  }
+
   tt_write (data, len);
 
   if (priv_modes & PrivMode_BracketPaste)
