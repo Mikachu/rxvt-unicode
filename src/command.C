@@ -795,9 +795,13 @@ rxvt_term::key_press (XKeyEvent &ev)
             }
         }
 
-      if (ctrl && meta && (keysym == XK_c || keysym == XK_v))
+      if (ctrl && shft && !meta && (keysym == XK_C || keysym == XK_V)
+#if ENABLE_FRILLS || ISO_14755
+          && !(iso14755buf & (ISO_14755_51 | ISO_14755_STARTED))
+#endif
+          )
         {
-          if (keysym == XK_v)
+          if (keysym == XK_V)
             selection_request (ev.time, Sel_Clipboard);
           else if (selection.len > 0)
             {
