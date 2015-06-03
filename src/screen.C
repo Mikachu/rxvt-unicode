@@ -2724,6 +2724,12 @@ rxvt_term::tt_paste (char *data, unsigned int len) NOTHROW
       if (rlen >= 5 && !strncmp(esc, "[201~", 5))
         *(esc - 1) = '_';
     }
+    esc = data;
+    rlen = len;
+    while (esc = memchr(esc, '\003', rlen)) {
+      *esc = '_';
+      esc++;
+    }
   }
 
   tt_write (data, len);
