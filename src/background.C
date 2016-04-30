@@ -447,11 +447,6 @@ rxvt_term::render_root_image ()
   sx = parent_x;
   sy = parent_y;
 
-  /* check if we are outside of the visible part of the virtual screen : */
-  if (sx + parent_width <= 0 || sy + parent_height <= 0
-      || sx >= root_width || sy >= root_height)
-    return;
-
   while (sx < 0) sx += root_img->w;
   while (sy < 0) sy += root_img->h;
 
